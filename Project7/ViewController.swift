@@ -17,6 +17,12 @@ class ViewController: UITableViewController {
      override func viewDidLoad() {
           super.viewDidLoad()
           
+          performSelector(inBackground: #selector(fetchJSON), with: nil)
+          
+          }
+     
+          func fetchJSON() {
+          
           let urlString: String
           
           if navigationController?.tabBarItem.tag == 0 {
@@ -28,29 +34,32 @@ class ViewController: UITableViewController {
           urlString = "https://api.whitehouse.gov/v1/petitions.json?signatureCountFloor=10000&limit=100"
           
           }
+          
+               
           if let url = URL(string: urlString) {
                if let data = try? Data(contentsOf: url) {
                     let json = JSON(data: data)
                     
                     if json["metadata"]["responseInfo"]["status"].intValue == 200 {
-                         parse(json: json)
+                         self.parse(json: json)
                          return
                          
                     }
                }
           }
-          showError()
+     
+          performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false)
           
      }
 
 
      func showError() {
-          
+     
           let ac = UIAlertController(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
           ac.addAction(UIAlertAction(title: "OK", style: .default))
-          present(ac, animated: true)
-          
-     }
+          self.present(ac, animated: true)
+       }
+     
      
      func parse(json: JSON) {
           for result in json["results"].arrayValue {
@@ -61,13 +70,11 @@ class ViewController: UITableViewController {
                petitions.append(obj)
                
           }
-          
-          tableView.reloadData()
+     
+     tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
+      
      }
-     
-
-     
-     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+         override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
           return petitions.count
      }
      
@@ -75,8 +82,7 @@ class ViewController: UITableViewController {
           let vc = DetailViewController()
           vc.detailItem = petitions[indexPath.row]
           navigationController?.pushViewController(vc, animated: true)
-          
-          
+               
      }
      
      override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -86,11 +92,6 @@ class ViewController: UITableViewController {
           cell.textLabel?.text = petition["title"]
           cell.detailTextLabel?.text = petition["body"]
           return cell
-     }
+          }
      
-     
-
-     
-
 }
-

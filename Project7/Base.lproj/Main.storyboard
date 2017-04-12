@@ -79,6 +79,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ZN4-FU-H2a" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="uzr-Nk-xOa">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
@@ -88,7 +89,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="98G-MV-Mls" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1808.8" y="122.78860569715144"/>
+            <point key="canvasLocation" x="1950" y="123"/>
         </scene>
     </scenes>
 </document>
