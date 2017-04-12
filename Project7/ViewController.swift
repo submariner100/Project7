@@ -5,6 +5,7 @@
 //  Created by Macbook on 11/04/2017.
 //  Copyright © 2017 Chappy-App. All rights reserved.
 //
+//
 
 import UIKit
 
@@ -82,7 +83,7 @@ class ViewController: UITableViewController {
           let vc = DetailViewController()
           vc.detailItem = petitions[indexPath.row]
           navigationController?.pushViewController(vc, animated: true)
-               
+          
      }
      
      override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
